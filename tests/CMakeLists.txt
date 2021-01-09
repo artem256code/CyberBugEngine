@@ -38,8 +38,19 @@ endif ()
 
 include_directories(${GTestIncludes})
 
-add_executable(test     test_render.cpp
+find_library(SDL2_LIBRARY             SDL2)
+find_library(SDL2_IMAGE_LIBRARY       SDL2_image)
+
+add_executable(test     test.cpp
+                        test_render.cpp
+                        test_object.cpp
+                        ../src/buffer.cpp
+                        ../src/buffer.hpp
+                        ../src/object.cpp
+                        ../src/object.hpp
+                        ../src/render.cpp
+                        ../src/render.hpp
                         ${GTestFiles})
 
 add_test(NAME test COMMAND test)
-target_link_libraries(test PRIVATE Threads::Threads)
+target_link_libraries(test PRIVATE Threads::Threads ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY})
